@@ -7,8 +7,22 @@ export default function Settings() {
   const [apiKey, setApiKey] = React.useState(localStorage.getItem("voiceforge:elevenlabsApiKey") || "");
   const [profiles, setProfiles] = React.useState(getSavedProfiles());
 
+  const defaultSettings = { stability: 0.45, similarity_boost: 0.8, style: 0.2 };
+  const [voiceSettings, setVoiceSettings] = React.useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem("voiceforge:voiceSettings")) || defaultSettings;
+    } catch {
+      return defaultSettings;
+    }
+  });
+
   function saveApiKey() {
     localStorage.setItem("voiceforge:elevenlabsApiKey", apiKey);
+  }
+
+  function saveVoiceSettings(newSettings) {
+    setVoiceSettings(newSettings);
+    localStorage.setItem("voiceforge:voiceSettings", JSON.stringify(newSettings));
   }
 
   function removeProfile(voiceId) {
@@ -54,6 +68,61 @@ export default function Settings() {
         <p className="mt-3 text-sm text-ink/65">
           The backend reads `.env` first. This local key is available for future client-only experiments.
         </p>
+      </section>
+
+      <section className="rounded-lg border border-ink/10 bg-white p-5 shadow-soft">
+        <h2 className="text-xl font-bold">Voice Synthesis Settings</h2>
+        <p className="mt-1 text-sm text-ink/65 mb-5">Adjust how ElevenLabs generates your cloned speech.</p>
+        
+        <div className="space-y-4">
+          <div>
+            <label className="flex justify-between text-sm font-bold" htmlFor="stability">
+              <span>Stability</span>
+              <span className="text-ink/65">{voiceSettings.stability}</span>
+            </label>
+            <input
+              id="stability"
+              type="range"
+              min="0" max="1" step="0.01"
+              value={voiceSettings.stability}
+              onChange={(e) => saveVoiceSettings({ ...voiceSettings, stability: parseFloat(e.target.value) })}
+              className="w-full mt-2"
+            />
+            <p className="text-xs text-ink/50 mt-1">Lower values are more expressive; higher values are more consistent.</p>
+          </div>
+          
+          <div>
+            <label className="flex justify-between text-sm font-bold" htmlFor="similarity">
+              <span>Similarity Boost</span>
+              <span className="text-ink/65">{voiceSettings.similarity_boost}</span>
+            </label>
+            <input
+              id="similarity"
+              type="range"
+              min="0" max="1" step="0.01"
+              value={voiceSettings.similarity_boost}
+              onChange={(e) => saveVoiceSettings({ ...voiceSettings, similarity_boost: parseFloat(e.target.value) })}
+              className="w-full mt-2"
+            />
+            <p className="text-xs text-ink/50 mt-1">Higher values make the voice closer to the original but may introduce artifacts.</p>
+          </div>
+
+          <div>
+            <label className="flex justify-between text-sm font-bold" htmlFor="style">
+              <span>Style Exaggeration</span>
+              <span className="text-ink/65">{voiceSettings.style}</span>
+            </label>
+            <input
+              id="style"
+              type="range"
+              min="0" max="1" step="0.01"
+              value={voiceSettings.style}
+              onChange={(e) => saveVoiceSettings({ ...voiceSettings, style: parseFloat(e.target.value) })}
+              className="w-full mt-2"
+            />
+            <p className="text-xs text-ink/50 mt-1">Higher values exaggerate the style of the reference audio.</p>
+          </div>
+        </div>
       </section>
 
       <section className="rounded-lg border border-ink/10 bg-white p-5 shadow-soft">

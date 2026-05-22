@@ -65,12 +65,21 @@ export async function cloneVoice(request, response, next) {
 export async function speak(request, response, next) {
   try {
     const apiKey = requireApiKey(request);
-    const { text, voice_id: voiceId } = request.body;
+    const { text, voice_id: voiceId, voice_settings } = request.body;
 
     if (!text || !voiceId) {
       response.status(400).json({ error: "Both text and voice_id are required." });
       return;
     }
+
+    const defaultVoiceSettings = {
+      stability: 0.45,
+      similarity_boost: 0.8,
+      style: 0.2,
+      use_speaker_boost: true
+    };
+
+    const mergedSettings = { ...defaultVoiceSettings, ...voice_settings };
 
     const elevenResponse = await fetch(`${ELEVENLABS_BASE_URL}/text-to-speech/${voiceId}`, {
       method: "POST",
@@ -82,12 +91,7 @@ export async function speak(request, response, next) {
       body: JSON.stringify({
         text,
         model_id: "eleven_multilingual_v2",
-        voice_settings: {
-          stability: 0.45,
-          similarity_boost: 0.8,
-          style: 0.2,
-          use_speaker_boost: true
-        }
+        voice_settings: mergedSettings
       })
     });
 
