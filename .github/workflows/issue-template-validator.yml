@@ -269,7 +269,7 @@ jobs:
                   `1. Add a \`priority: *\` and \`level: *\` label.\n` +
                   `2. Apply a decision label: \`go ahead\`, \`duplicate\`, \`not needed\`, or \`out of scope\`.\n` +
                   `3. Assign only when ready. Contributors should wait for assignment before starting work.\n\n` +
-                  `<sub>VoiceForge Automation · issue-template-validator</sub>`;
+                  `<sub>🤖 VoiceForge Automation · issue-template-validator</sub>`;
               } else if (reviewerMentions.length > 0) {
                 successBody =
                   `${marker}\n` +
@@ -281,7 +281,7 @@ jobs:
                   `2. They apply \`go ahead\` or close with \`duplicate\`, \`not needed\`, or \`out of scope\`.\n` +
                   `3. The issue gets assigned. Please start work only after approval and assignment.\n\n` +
                   `${reviewerMentions.join(' ')} - ${matchedProgram.name} issue ready for your review.\n\n` +
-                  `<sub>VoiceForge Automation · issue-template-validator</sub>`;
+                  `<sub>🤖 VoiceForge Automation · issue-template-validator</sub>`;
               } else {
                 successBody =
                   `${marker}\n` +
@@ -289,7 +289,7 @@ jobs:
                   `Hi @${username} - your ${matchedProgram.name} ${issueType} looks good.\n\n` +
                   `**Labels applied:** ${appliedLabels}\n\n` +
                   `No mentor is configured for ${matchedProgram.name} yet, so a maintainer will review this directly. Please wait for assignment before starting work.\n\n` +
-                  `<sub>VoiceForge Automation · issue-template-validator</sub>`;
+                  `<sub>🤖 VoiceForge Automation · issue-template-validator</sub>`;
               }
 
               if (existing) {
@@ -334,7 +334,7 @@ jobs:
               problemLines.map(line => `- ${line}`).join('\n') +
               `\n\n` +
               `Edit the issue body above. This comment updates automatically after the workflow runs again.\n\n` +
-              `<sub>VoiceForge Automation · issue-template-validator</sub>`;
+              `<sub>🤖 VoiceForge Automation · issue-template-validator</sub>`;
 
             if (existing) {
               await github.rest.issues.updateComment({
