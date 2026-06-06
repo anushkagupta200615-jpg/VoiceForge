@@ -50,7 +50,7 @@ export default function App() {
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-5 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
           <div className="flex items-center gap-4">
             <img
-              src="/logo.png"
+              src="/models/logo5.png"
               alt="VoiceForge Logo"
               className="h-14 w-14 object-contain"
             />
