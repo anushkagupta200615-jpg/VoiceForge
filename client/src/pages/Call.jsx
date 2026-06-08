@@ -16,7 +16,7 @@ export default function Call() {
   const localVideoRef = React.useRef(null);
   const [activeProfile, setActiveProfile] = React.useState(null);
   const [language, setLanguage] = React.useState(() => {
-  return localStorage.getItem("voiceforge:language") || "English";
+  return localStorage.getItem("voiceforge:language") || "en";
 });
 React.useEffect(() => {
   localStorage.setItem("voiceforge:language", language);
@@ -128,7 +128,7 @@ React.useEffect(() => {
       await speak({
   text,
   voiceId: activeProfile.voice_id,
-  language,
+  language_code: language,
 });
     } catch (err) {
       console.error("TTS streaming error:", err);
@@ -283,13 +283,13 @@ React.useEffect(() => {
     onChange={(e) => setLanguage(e.target.value)}
     className="w-full rounded-md border border-ink/15 bg-cloud p-3 dark:border-border dark:bg-black dark:text-neutral-100"
   >
-    <option value="English">English</option>
-    <option value="Hindi">Hindi</option>
-    <option value="Spanish">Spanish</option>
-    <option value="French">French</option>
-    <option value="German">German</option>
-    <option value="Portuguese">Portuguese</option>
-    <option value="Japanese">Japanese</option>
+   <option value="en">English</option>
+<option value="hi">Hindi</option>
+<option value="es">Spanish</option>
+<option value="fr">French</option>
+<option value="de">German</option>
+<option value="pt">Portuguese</option>
+<option value="ja">Japanese</option>
   </select>
 </section>
       <div className="grid gap-5 xl:grid-cols-[0.9fr_1.1fr_0.9fr]">
