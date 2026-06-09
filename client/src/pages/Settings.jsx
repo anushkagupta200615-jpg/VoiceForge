@@ -230,7 +230,10 @@ export default function Settings() {
               <p className="text-sm font-bold text-ink dark:text-neutral-200">
                 Speaker Boost
               </p>
-              <p className="mt-0.5 text-xs text-ink/55 dark:text-muted">
+              <p
+                id="settings-speaker-boost-desc"
+                className="mt-0.5 text-xs text-ink/55 dark:text-muted"
+              >
                 Boosts similarity to the reference speaker. Disable if you hear metallic artefacts.
               </p>
             </div>
@@ -239,6 +242,7 @@ export default function Settings() {
               type="button"
               role="switch"
               aria-checked={voiceSettings.use_speaker_boost}
+              aria-describedby="settings-speaker-boost-desc"
               onClick={() =>
                 saveVoiceSettings({
                   ...voiceSettings,
