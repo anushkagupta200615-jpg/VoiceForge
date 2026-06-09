@@ -234,7 +234,7 @@ export default function Settings() {
                 id="settings-speaker-boost-desc"
                 className="mt-0.5 text-xs text-ink/55 dark:text-muted"
               >
-                Boosts similarity to the reference speaker. Disable if you hear metallic artefacts.
+                Boosts similarity to the reference speaker. Disable if you hear metallic artifacts.
               </p>
             </div>
             <button
